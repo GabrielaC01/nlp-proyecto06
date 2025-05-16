@@ -51,8 +51,8 @@ class NeuralTuringMachine(nn.Module):
         key = self.read_key(self.h)               # [B, W]
         beta = F.softplus(self.read_beta(self.h)) # [B, 1]
 
-        sim = self.cosine_similarity(key, self.memory)  # [N]
-        weights = F.softmax(beta * sim, dim=0)          # [N]
+        sim = self.cosine_similarity(key[0], self.memory)  # [N]
+        weights = F.softmax(beta[0] * sim, dim=0)          # [N]
 
         read = torch.matmul(weights.unsqueeze(0), self.memory)  # [1, W]
 
